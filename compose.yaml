@@ -1,0 +1,19 @@
+# Docker to run Postgres SQL DB in a Container #
+# Ran docker compose up -d (container runs on detached more - can still use terminal)
+
+
+services:
+  db:
+    container_name: db
+    image: postgres:13
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+    ports:
+      - 5432:5432
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata: {}
