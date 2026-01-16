@@ -12,4 +12,4 @@ Postgres SQL (pgadmin prob)
 
 
 
-Docker Componse to run Front Back & DB together.
+Docker Componse to run Front Back & DB together.# fullstack-rust-app
