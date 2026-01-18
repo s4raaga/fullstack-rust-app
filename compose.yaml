@@ -1,8 +1,35 @@
 # Docker to run Postgres SQL DB in a Container #
 # Ran docker compose up -d (container runs on detached more - can still use terminal)
 
-
 services:
+
+  services:
+  nextapp:
+    container_name: nextapp
+    image: francescoxx/nextapp:1.0.0
+    build:
+      context: ./frontend
+      dockerfile: next.dockerfile
+    ports:
+      - 3000:3000
+    environment:
+      - NEXT_PUBLIC_API_URL=http://localhost:8080
+    depends_on:
+      - rustapp
+      
+  rustapp:
+    container_name: rustapp
+    image: francescoxx/rustapp:1.0.0
+    build:
+      context: ./backend
+      dockerfile: rust.dockerfile
+      args:
+        DATABASE_URL: postgres://postgres:postgres@db:5432/postgres
+    ports:
+      - '8080:8080'
+    depends_on:
+      - db
+
   db:
     container_name: db
     image: postgres:13
