@@ -3,20 +3,20 @@
 
 services:
 
-  services:
   nextapp:
     container_name: nextapp
     image: francescoxx/nextapp:1.0.0
     build:
       context: ./frontend
       dockerfile: next.dockerfile
+      args:
+        NEXT_PUBLIC_API_URL: http://localhost:8080
     ports:
       - 3000:3000
-    environment:
-      - NEXT_PUBLIC_API_URL=http://localhost:8080
     depends_on:
-      - rustapp
-      
+      rustapp:
+        condition: service_started
+
   rustapp:
     container_name: rustapp
     image: francescoxx/rustapp:1.0.0
@@ -28,7 +28,8 @@ services:
     ports:
       - '8080:8080'
     depends_on:
-      - db
+      db:
+        condition: service_healthy
 
   db:
     container_name: db
@@ -41,6 +42,11 @@ services:
       - 5432:5432
     volumes:
       - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
 volumes:
   pgdata: {}

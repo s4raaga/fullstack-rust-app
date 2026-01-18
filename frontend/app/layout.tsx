@@ -1,15 +1,19 @@
-import React from 'react';
-import UserInterface from './components/UserInterface'; 
+import type { Metadata } from "next";
+import "./globals.css";
 
-const Home: React.FC = () => {
-  return (
-    <main className="flex flex-wrap justify-center items-start min-h-screen bg-gray-100">
-      <div className="m-4">
-        <UserInterface backendName="rust" />
-      </div>
-    </main>
-  );
+export const metadata: Metadata = {
+  title: "User Management",
+  description: "Fullstack Rust + Next.js App",
 };
 
-export default Home;
-
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <html lang="en">
+      <body>{children}</body>
+    </html>
+  );
+}
