@@ -2,8 +2,6 @@
 
 A simple user management app with a Rust backend and Next.js frontend, all running in Docker.
 
-Based on: https://dev.to/francescoxx/build-a-full-stack-app-with-rust-nextjs-and-docker-436h
-
 ## Tech Stack
 
 - **Frontend:** Next.js 16, TypeScript, Tailwind CSS v4
